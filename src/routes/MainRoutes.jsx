@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {
     BrowserRouter as Router,
     Routes,
@@ -6,11 +6,14 @@ import {
   } from 'react-router-dom';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
+import {AuthContext} from "../api/auth/AuthContext";
 
 const MainRoutes = () => {
-  return (
-    <PublicRoutes />
-  )
+
+  const {user} = useContext(AuthContext); // Obtener el usuario
+
+	return <Router>{!!!user.logged ? <PublicRoutes /> : <PrivateRoutes />}</Router>; // Verificar si esta o no logeado
+
 };
 
 export default MainRoutes;
